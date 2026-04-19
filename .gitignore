@@ -1,0 +1,31 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Secrets
+.env
+.env.*
+*.key
+api_keys.txt
+
+# Temporary
+*.tmp
+*.log
+temp/
+tmp/
