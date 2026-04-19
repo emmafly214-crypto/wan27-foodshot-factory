@@ -207,48 +207,77 @@ Prompt 末尾挂载硬性禁令清单（10+ 轮迭代累积的食品畸变禁项
 
 ---
 
-## 🚀 快速开始
+## 🚀 快速开始（5 分钟跑通）
 
-### 输入
+**无外部依赖**（Python 3.10+ stdlib 实现，零 `pip install`）。完整指南见 [`docs/QUICKSTART.md`](docs/QUICKSTART.md)。
+
+### 1. 克隆 + 配置 API Key
+```bash
+git clone https://github.com/emmafly214-crypto/wan27-foodshot-factory.git
+cd wan27-foodshot-factory
+export DASHSCOPE_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+### 2. 准备 1 份 JSON 配置
+```bash
+cp scripts/sample_input.json my_sku.json
+# 编辑 my_sku.json 填入你的 SKU 信息
+```
+
+### 3. 一键生成
+```bash
+python scripts/generate.py --config my_sku.json --out-dir ./output
+```
+输出 5 张可上架主图 + 可选动态视频。
+
+### 完整配置示例
+
 ```json
 {
   "product_name": "酱好美湘式卤水调味料",
-  "category": "调味料/卤水料",
+  "category": "luwei",
   "platform": "tmall",
   "flavor": "麻辣",
-  "package_reference": "path/to/packaging.jpg",
-  "style_reference": "path/to/style.jpg",
-  "raw_material_reference": "path/to/raw_chicken_feet.jpg",
-  "selling_points": ["18 种香辛料研磨而成", "新手也能做卤味", "加水即卤"],
   "packaging_strength": "medium",
-  "text_mode": "auto",
-  "allow_promo": false,
-  "need_main_images": 5,
-  "need_detail_modules": true,
+
+  "package_reference": "./images/my_pack.jpg",
+  "style_reference": "./images/style.jpg",
+  "raw_material_reference": "./images/raw.jpg",
+
+  "selling_points": ["18 种香辛料研磨而成", "新手也能做卤味", "加水即卤"],
   "appetite_params": {
-    "挂汁感": "高",
-    "油亮感": "高",
-    "堆叠感": "高",
-    "配料感": "中（辣椒+葱花+芝麻）",
-    "热气感": "中（微蒸汽）"
-  }
+    "挂汁感": "高", "油亮感": "高", "堆叠感": "高",
+    "配料感": "中", "热气感": "中", "拉丝感": "低"
+  },
+
+  "text_mode": "overlay",
+  "need_main_images": 5,
+  "generate_video": true,
+  "video_prompt": "砂锅中卤汁咕嘟冒泡文火慢炖，热气升腾"
 }
 ```
 
-### 处理流程
+### 工程化内部流程（一键跑完）
 
 ```
-Step 1: 食品类目识别（卤水/方便面/零食/组合装/进口食品/口味创新型）
-Step 2: 双路由决策（平台 × 包装强度 → 12 种策略匹配）
-Step 3: Wan2.7 文生图（结构化 prompt + 食欲 6 参数）
-Step 4: Wan2.7 多图参考生成（3-4 张参考图喂入）
-Step 5: Wan2.7 图像编辑（逐参数精调）
-Step 6: 【绝对禁项】审查（未通过则自动回到 Step 3 重跑）
-Step 7: 文案治理（白名单槽位 + 语义冲突拦截）
-Step 8: Wan2.7 组图输出（主图 5 张 + 详情页模块）
-Step 9: Wan2.7 图生视频（成品图转动态预告，可选）
-Step 10: 输出完整视觉资产包
+Step 1: 文案合规预检（促销词黑名单 + 口味冲突拦截）
+Step 2: 双路由决策（4 平台 × 3 包装强度 → 12 种策略匹配）
+Step 3: 三层锁定 Prompt 组装
+        ├─ 第一层：多图参考锚定（包装图 + 风格图 + 原料图）
+        ├─ 第二层：结构化 Prompt 模板（食欲 6 参数 + 平台策略 + 构图规则）
+        └─ 第三层：【绝对禁项】挂载（按品类差异化）
+Step 4: Wan2.7 文生图（wan2.7-image-pro，支持 Multi-Ref）
+Step 5: 组图输出（主图 5 张）
+Step 6: （可选）Wan2.7 图生视频（wanx2.1-i2v-plus，基于主图生成动态）
+Step 7: 输出完整视觉资产包
 ```
+
+### 🎬 Demo 视频（本 skill 跑出的真实 I2V 产物）
+
+| 视频 | 说明 |
+|------|------|
+| [`examples/videos/video_01_pouring.mp4`](examples/videos/video_01_pouring.mp4) | 酱好美包装倒卤汁入锅，卤汁如绸带落下，热气升腾 |
+| [`examples/videos/video_02_bubbling.mp4`](examples/videos/video_02_bubbling.mp4) | 卤锅中卤汁咕嘟冒泡，文火慢炖卤味，食材表面油光闪烁 |
 
 ---
 

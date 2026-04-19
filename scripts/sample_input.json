@@ -1,0 +1,37 @@
+{
+  "_comment": "Wan2.7 FoodShot Factory 示例输入 - 酱好美湘式卤水调味料麻辣款（天猫）",
+
+  "product_name": "酱好美湘式卤水调味料",
+  "category": "luwei",
+  "platform": "tmall",
+  "flavor": "麻辣",
+  "packaging_strength": "medium",
+
+  "package_reference": "./examples/package_malart.jpg",
+  "style_reference": "./examples/style_luwei_pot.jpg",
+  "raw_material_reference": "./examples/raw_chicken_feet.jpg",
+  "action_reference": null,
+
+  "selling_points": [
+    "18 种香辛料研磨而成",
+    "新手也能做卤味",
+    "加水即卤"
+  ],
+
+  "appetite_params": {
+    "挂汁感": "高",
+    "油亮感": "高",
+    "堆叠感": "高",
+    "配料感": "中",
+    "热气感": "中",
+    "拉丝感": "低"
+  },
+
+  "text_mode": "overlay",
+  "allow_violations": false,
+  "need_main_images": 5,
+  "size": "1024*1024",
+
+  "generate_video": false,
+  "video_prompt": "砂锅中卤汁咕嘟咕嘟冒泡文火慢炖，热气升腾，食材表面油光闪烁，暖色光线，电影级真实慢炖场景"
+}

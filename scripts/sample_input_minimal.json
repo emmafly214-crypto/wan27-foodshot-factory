@@ -1,0 +1,21 @@
+{
+  "_comment": "最小输入示例 - 无参考图的场景（纯文生图，效果较弱，仅用于测试）",
+
+  "product_name": "韩式火鸡面（不辣）",
+  "category": "noodle",
+  "platform": "tmall",
+  "flavor": "不辣",
+  "packaging_strength": "medium",
+
+  "selling_points": ["口味温和", "宿舍家庭都适合"],
+
+  "appetite_params": {
+    "挂汁感": "高",
+    "拉丝感": "高",
+    "油亮感": "高",
+    "配料感": "中",
+    "热气感": "中"
+  },
+
+  "need_main_images": 2
+}

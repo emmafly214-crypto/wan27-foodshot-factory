@@ -1,0 +1,3 @@
+# Wan2.7 FoodShot Factory - 依赖
+# 纯 Python stdlib 实现，无外部依赖（urllib + json + base64 + argparse 均为内置）
+# Python >= 3.10 即可运行
